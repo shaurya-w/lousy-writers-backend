@@ -9,7 +9,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // local testing
-      "https://lousy-writers-93p2-6ulhz0pxu-shauryas-projects-05599922.vercel.app", // Vercel frontend
+      "https://lousy-writers-93p2.vercel.app", // Vercel frontend
     ],
     credentials: true
   })
