@@ -3,13 +3,12 @@ require('dotenv').config(); //to get the environment variables
 const express = require('express');
 const app = express();
 const userModel = require('./models/post-model')
+const cors = require("cors");
 
-// app.use(cors({
-//   origin:'http://localhost:5173', // or your frontend URL
-//   credentials: true
-// }));
-
-
+app.use(cors({
+  origin: "https://lousy-writers-93p2-6ulhz0pxu-shauryas-projects-05599922.vercel.app",
+  credentials: true
+}));
 // ------parsers-------(will be before the routes)
 app.use(express.json());   
 app.use(express.urlencoded({ extended: true }));
