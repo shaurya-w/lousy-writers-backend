@@ -23,6 +23,5 @@ app.set('view engine', 'ejs');
 //this is to set the views directory as the default directory for ejs files
 app.set('views', './views'); 
 
-app.listen(3000, () => {
-    console.log(`Server is running on port 3000`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
