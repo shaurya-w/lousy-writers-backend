@@ -1,29 +1,26 @@
 const BlogModel = require('../models/post-model');
 const { post } = require('../routes/postRoutes');
 
-// ========== CREATE ==========
 exports.CreateGet = (req, res) => {
   res.render('create');
 };
 
 exports.CreatePost = async (req, res) => {
   try {
-
     const { category, title, subtitle, content, date } = req.body;
 
     function createSlug(title) {
       return title
         .toLowerCase()
         .trim()
-        .replace(/[\s\_]+/g, "-")           // spaces & underscores → hyphens
-        .replace(/[^\w\-]+/g, "")           // remove non-word chars
-        .replace(/\-\-+/g, "-")             // collapse multiple dashes
-        .replace(/^-+/, "")                 // trim starting dashes
-        .replace(/-+$/, "");                // trim ending dashes
+        .replace(/[\s\_]+/g, "-")           
+        .replace(/[^\w\-]+/g, "")           
+        .replace(/\-\-+/g, "-")           
+        .replace(/^-+/, "")                
+        .replace(/-+$/, "");   
     }
 
     const slug = createSlug(title)
-    console.log(slug)
 
     const newPost = await BlogModel.create({
       category, 
@@ -34,16 +31,12 @@ exports.CreatePost = async (req, res) => {
       date
     });
 
-    console.log(newPost)
     res.redirect('/read'); 
   } catch (err) {
-    console.error("Error creating post:", err);
     res.status(500).send('Error creating post');
   }
 };
 
-
-// ========== EDIT ==========
 exports.EditGet = async (req, res) => {
   try {
     const { id } = req.params;
@@ -65,15 +58,14 @@ exports.EditPost = async (req, res) => {
       return title
         .toLowerCase()
         .trim()
-        .replace(/[\s\_]+/g, "-")           // spaces & underscores → hyphens
-        .replace(/[^\w\-]+/g, "")           // remove non-word chars
-        .replace(/\-\-+/g, "-")             // collapse multiple dashes
-        .replace(/^-+/, "")                 // trim starting dashes
-        .replace(/-+$/, "");                // trim ending dashes
+        .replace(/[\s\_]+/g, "-")           
+        .replace(/[^\w\-]+/g, "")           
+        .replace(/\-\-+/g, "-")             
+        .replace(/^-+/, "")              
+        .replace(/-+$/, "");              
     }
 
     const slug = createSlug(title)
-    console.log(slug)
 
     await BlogModel.findByIdAndUpdate(id, {
       category, 
@@ -86,12 +78,10 @@ exports.EditPost = async (req, res) => {
 
     res.redirect('/read');
   } catch (err) {
-    console.error(err);
     res.status(500).send('Failed to update post');
   }
 };
 
-// ========== READ ==========
 exports.ReadGet = async (req, res) => {
   try {
     const posts = await BlogModel.find();
@@ -102,7 +92,6 @@ exports.ReadGet = async (req, res) => {
   }
 };
 
-// ========== DELETE ==========
 exports.DeleteGet = async (req, res) => {
   try {
     const { id } = req.params;
@@ -128,16 +117,14 @@ exports.SendAllCategoryPosts = async (req, res) => {
 
 exports.sendPostBySlug = async (req, res) => {
   try {
-    const slug = req.params.slug;           // <-- CORRECT
-    const post = await BlogModel.findOne({ slug });   // <-- find ONE post
+    const slug = req.params.slug;           
+    const post = await BlogModel.findOne({ slug });   
 
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
-
-    return res.json(post);                  // <-- send post
+    return res.json(post);             
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
