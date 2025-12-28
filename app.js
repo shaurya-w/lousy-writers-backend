@@ -6,9 +6,10 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://lousy-writers-93p2.vercel.app"
-  ],
+  "http://localhost:5173",
+  "https://lousy-writers-93p2.vercel.app",
+  "https://lousy-writers-93p2-o8pdezxic-shauryas-projects-05599922.vercel.app" 
+],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
